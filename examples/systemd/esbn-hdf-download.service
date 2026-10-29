@@ -1,0 +1,12 @@
+[Unit]
+Description=Download ESB Networks HDF smart-meter CSV
+Wants=network-online.target
+After=network-online.target
+OnFailure=esbn-hdf-download-failed.service
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/esbn-hdf-download/esbn.env
+ExecStart=/opt/esbn-hdf-download/.venv/bin/python /opt/esbn-hdf-download/esbn_hdf_download.py
+TimeoutStartSec=15min
+UMask=0077

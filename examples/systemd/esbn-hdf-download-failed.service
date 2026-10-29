@@ -1,0 +1,7 @@
+[Unit]
+Description=Alert when esbn-hdf-download fails without reporting it itself
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/esbn-hdf-download/esbn.env
+ExecStart=/opt/esbn-hdf-download/.venv/bin/python /opt/esbn-hdf-download/esbn_hdf_download.py --systemd-failure-alert
