@@ -105,6 +105,15 @@ ESB Networks change the portal without notice, which is the usual cause of break
 step in the log tells you where to look. A `404`/`405` at "HDF download" means the endpoint moved;
 the current one is in the consumption page's script bundle (search it for `DownloadHdfPeriodic`).
 
+## What I use it for
+
+The file feeds my [Irish Tariff Optimiser](https://github.com/colfin22/tariff-optimiser), which
+replays your half hourly usage against Irish electricity plans and ranks them by real annual cost.
+It reads this CSV as is.
+
+This replaced my [ESBN to MQTT fork](https://github.com/colfin22/esbn-to-mqtt), which is archived.
+It stopped working when ESB Networks moved the download in October 2026.
+
 ## Tests
 
 ```sh
