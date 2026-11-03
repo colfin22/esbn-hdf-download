@@ -80,16 +80,24 @@ Example units are in [`examples/systemd`](examples/systemd):
 
 ```sh
 cp examples/systemd/esbn-hdf-download*.{service,timer} /etc/systemd/system/
+cp -r examples/systemd/esbn-hdf-download.service.d /etc/systemd/system/
 systemctl daemon-reload
 systemctl enable --now esbn-hdf-download.timer
 ```
+
+The timer runs at 04:30, 10:30, 16:30 and 22:30. The `zz-retry.conf` drop-in skips a run once
+that day has already succeeded, so a good day signs in once and a failed day gets three more
+tries. A skipped run doesn't sign in, doesn't alert and isn't a failure. Success is recorded in
+`/var/lib/esbn-hdf-download/last_success`. For one run a day instead, leave out the drop-in and
+set the timer to a single time.
 
 `esbn-hdf-download-failed.service` is the `OnFailure=` handler. It sends an alert if the run
 was killed or timed out, i.e. failed before the script could report it, and stays quiet
 when the script has already alerted.
 
 To do something with the file after a good run (copy it elsewhere, trigger an import), add an
-`ExecStartPost=` in a drop-in. It only runs when the download succeeded.
+`ExecStartPost=` in a drop-in. It only runs when the download succeeded. Give the drop-in a name
+that sorts before `zz-retry.conf`, so the day only counts as done once your step has worked too.
 
 ## Exit codes
 

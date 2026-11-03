@@ -1,8 +1,8 @@
 [Unit]
-Description=Daily ESB Networks HDF download
+Description=ESB Networks HDF download every 6 hours (later runs skip once today's run succeeded)
 
 [Timer]
-OnCalendar=*-*-* 04:30:00
+OnCalendar=*-*-* 04,10,16,22:30:00
 RandomizedDelaySec=10min
 Persistent=true
 
